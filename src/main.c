@@ -13,6 +13,14 @@ int WIDTH = PBL_IF_RECT_ELSE(144,180);
 int IMAGE_HEIGHT = 76;
 int IMAGE_WIDTH = 56;
 
+GColor get_pixel_color(int x, int y){
+	return (GColor){ .argb = bitmap_data[y*bytes_per_row + x] };
+}
+
+void set_pixel_color(int x, int y, GColor color){
+	bitmap_data[y*bytes_per_row + x] = color.argb;
+}
+
 void replace_colors(int pixel_width, int pixel_height, GColor old_color, GColor new_color){
 
 }
@@ -23,14 +31,6 @@ void draw(Layer *layer, GContext *ctx){
 	graphics_draw_bitmap_in_rect(ctx, image, GRect((WIDTH-IMAGE_WIDTH)/2, HEIGHT-4-IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT));
 	graphics_context_set_stroke_color(ctx, GColorBlack);
 	graphics_draw_line(ctx, GPoint(0,HEIGHT/2), GPoint(WIDTH,HEIGHT/2));
-}
-
-GColor get_pixel_color(int x, int y){
-	return (GColor){ .argb = bitmap_data[y*bytes_per_row + x] };
-}
-
-void set_pixel_color(int x, int y, GColor color){
-	bitmap_data[y*bytes_per_row + x] = color.argb;
 }
 
 void handle_init(){
